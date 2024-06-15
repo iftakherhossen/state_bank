@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-@7o2%dqg(9()17(krkxh5xox)0roqr)g91flzwxz22d3u0up3f
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
+CSRF_TRUSTED_ORIGINS = ['https://*state-bank.onrender.com', 'https://*.127.0.0.1']
 
 # Application definition
 
