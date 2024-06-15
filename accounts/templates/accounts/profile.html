@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+{% load static %} {% block page_title %} State bank - Pofile {% endblock %}
+
+{% block content %}
+<div class="py-10 lg:py-14 px-5">
+    <div class="mt-5 text-white">
+        <div class="flex flex-col md:flex-row justify-start items-start md:justify-between md:items-center md:px-6 pb-5 border-b mb-2">
+            <h2 class="text-2xl lg:text-3xl font-bold tracking-wide mb-2 md:mb-0">Account No: <span class="font-black text-yellow-400">{{request.user.account.account_no}}</span></h2>
+            <h2 class="text-2xl lg:text-3xl font-bold tracking-wide">Balance: <span class="font-black text-yellow-400">{{request.user.account.balance}}</span></h2>
+        </div>
+        <div class="flex flex-col md:flex-row mt-8 mb-5 px-6 items-start md:justify-between">                
+            <div class="w-full flex items-start gap-x-5">
+                <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="User" class="w-20 h-20 rounded-full mb-5 md:mb-0">
+                <div>
+                    <h1 class="text-2xl lg:text-3xl font-semibold mb-1">{{request.user.first_name}} {{request.user.last_name}}</h1>
+                    <p class="text-green-400 tracking-wide">Status: Active</p>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0">
+                <a href="{% url 'edit_profile' %}" class="bg-slate-700 w-52 p-3 flex justify-center items-center text-base text-white tracking-wide font-semibold cursor-pointer select-none">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

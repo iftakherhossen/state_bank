@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+{% block page__title %} {{ title }} {% endblock %} 
+
+{% block content %}
+<div class="text-white">
+    <div class="container mx-auto p-5">
+        <div class="mt-10 mb-8 flex justify-center items-center">
+            <h1 class="text-4xl font-bold text-center">Loan Lists</h1>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th class="border p-3">Loan ID</th>
+                        <th class="border p-3">Application Date</th>
+                        <th class="border p-3">Amount</th>
+                        <th class="border p-3">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loans %}
+                        <tr>
+                            <td class="border p-3 text-center">{{loan.id}}</td>
+                            <td class="border p-3 text-center">{{loan.timestamp|date:"F d, Y h:i A"}}</td>
+                            <td class="border p-3 text-center">{{loan.amount}}</td>
+                            <td class="border p-3 text-center">
+                                {% if loan.loan_approval %} <a href="{% url 'loan_repay' loan.id %}" class="bg-gray-900 px-5 py-2 rounded-md">Loan Repay</a> {% else %} Pending {% endif%}
+                            </td>                           
+                        </tr>
+                    {% endfor %}                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

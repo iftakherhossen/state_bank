@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block page_title %} {{title}} - State Bank {% endblock %}
+
+{% block content %}
+<div class="text-white">
+    <div class="container mx-auto p-5">
+        <div class="mt-16 mb-8 flex justify-center items-center">
+            <h1 class="text-4xl font-bold text-center">{{title}}</h1>
+        </div>
+        <div class="bg-slate-900 rounded-xl w-full md:w-[80%] lg:w-[60%] xl:w-[40%] mt-10 mx-auto p-8 py-10">
+            <form method="post">
+                {% csrf_token %}
+                {% if key == 'Transfer' %}
+                <div class="w-full mb-5">
+                    <label class="text-lg uppercase font-semibold tracking-wide px-1 mb-2" for="amount">Recipient Account No</label>
+                    <input class="shadow appearance-none border border-gray-500 rounded w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2 font-bold" name="recipient_account_no" id="amount" type="number" placeholder="Recipient Account No" required>
+                </div> 
+                {% endif %}
+                <div class="w-full mb-5">
+                    <label class="text-lg uppercase font-semibold tracking-wide px-1 mb-2" for="amount">{{key}} Amount</label>
+                    <input class="shadow appearance-none border border-gray-500 rounded w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2 font-bold" name="amount" id="amount" type="number" placeholder="Enter Amount" required>
+                </div> 
+                <div>
+                    {% if form.amount.errors %}
+                        {% for error in form.amount.errors %}
+                            <div class="bg-red-600 text-white px-5 py-3 rounded-xl font-semibold flex items-center flex-wrap gap-3 mt-5">
+                                <span class="text-lg">&#9888;</span>
+                                <span>{{error}}</span>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div> 
+                <div class="flex justify-center mt-8 gap-x-4">
+                    <button type="submit" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline tracking-wide">{{key}}</button>                 
+                    {% if title == 'Apply for a Loan' %}
+                        <a href={% url 'loan_list' %} class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline tracking-wide">Loan List</a>
+                    {% endif %} 
+                </div>                  
+            </form>
+        </div>
+    </div>        
+</div>
+{% endblock %}

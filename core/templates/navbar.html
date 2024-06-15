@@ -1,0 +1,72 @@
+<nav class="bg-gray-900 text-white relative">
+    <div class="flex justify-between items-center container mx-auto px-5 py-4">
+        <div>
+            <a class="text-3xl font-bold font-heading" href="{% url 'home' %}">State Bank.</a>
+        </div>
+        {% comment %} <div>
+            <ul class="w-full flex items-center gap-x-8">
+                <li class="inline-block list-none"><a class="cursor-pointer"  href="{% url 'home' %}">Home</a></li>
+                <li class="inline-block list-none"><a class="cursor-pointer">Features</a></li>
+                <li class="inline-block list-none"><a class="cursor-pointer">About Us</a></li>
+                <li class="inline-block list-none"><a class="cursor-pointer">Contact</a></li>
+            </ul>
+        </div> {% endcomment %}
+        <div>
+            {% if user.is_authenticated %}
+                <div class="flex items-center gap-x-5">
+                    <div class="hidden md:flex justify-between items-center px-6 py-1.5 gap-x-3 bg-gray-700 rounded-full">
+                        <h2 class="text-[18px] tracking-wide">Balance</h2>
+                        <h2 class="text-[18px] tracking-wider font-bold text-yellow-400" id="balance"  title="{{user.request.account.balance}}">$ {{balance}}</h2>
+                    </div>               
+                    <div>
+                        <img src="https://img.icons8.com/?size=100&id=jowRc037F2GM&format=png&color=000000" alt="Menu" class="h-10 w-10 rounded-full cursor-pointer" onclick="toggleMenu('featuresMenu')" />
+                    </div>
+                    <div>
+                        <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="User" class="h-10 w-10 rounded-full cursor-pointer" onclick="toggleMenu('userMenu')" />                        
+                    </div>
+                </div>
+            {% else %}            
+                <ul class="flex items-center gap-x-8">                    
+                    <li class="text-[17px] cursor-pointer"><a href="{% url 'login' %}">Login</a></li>
+                    <li class="text-[17px] cursor-pointer bg-yellow-400 text-slate-900 font-semibold px-5 py-1 rounded-2xl"><a href="{% url 'register' %}">Register</a></li>
+                </ul>
+            {% endif  %}
+        </div>
+    </div>
+
+    <div class="hidden" id="featuresMenu">
+        <div class="absolute top-[100%] right-[10%] w-64 bg-gray-900 mt-4 mr-5 rounded-lg z-10">  
+            <div class="border-b px-5 py-3">
+                <h2 class="text-[17px] tracking-wide">Services</h2>
+            </div>             
+            <ul class="px-5 py-4 flex flex-col gap-y-4">
+                <a class="list-none cursor-pointer" href="{% url 'statements' %}">Statements</a>
+                <a class="list-none cursor-pointer" href="{% url 'deposit' %}">Deposit</a>
+                <a class="list-none cursor-pointer" href="{% url 'withdraw' %}">Withdraw</a>
+                <a class="list-none cursor-pointer" href="{% url 'transfer' %}">Transfer</a>
+                <a class="list-none cursor-pointer" href="{% url 'loan_request' %}">Loan Request</a>
+                <a class="list-none cursor-pointer" href="{% url 'loan_list' %}">Loan List</a>
+            </ul>
+        </div>
+    </div>
+    <div class="hidden" id="userMenu">
+        <div class="absolute top-[100%] right-[10%] w-64 bg-gray-900 mt-4 mr-5 rounded-lg z-10">
+            <div class="border-b px-5 py-3">
+                <h2 class="text-[17px] tracking-wide">Welcome, <span class="font-bold text-yellow-400">{{request.user.first_name}} 👋</span></h2>
+            </div>            
+            <ul class="px-5 py-4 flex flex-col gap-y-4">
+                <a class="list-none cursor-pointer" href="{% url 'profile' %}">Profile</a>  
+                <li>            
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class="list-none cursor-pointer w-full appearance-none text-start focus:border-0 focus:outline-none" type="submit">Logout</button>
+                    </form>
+                </li>
+            </ul>
+            <div class="md:hidden border-t px-5 py-3 flex justify-between items-center mt-1">
+                <h2 class="text-[18px] tracking-wide">Balance</h2>
+                <h2 class="text-[18px] tracking-wider font-bold text-yellow-400" id="balance" title="{{user.request.account.balance}}">$ {{balance}}</h2>
+            </div> 
+        </div>
+    </div>    
+</nav>

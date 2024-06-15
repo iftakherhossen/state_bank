@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block page_title %} Transaction Statements - State Bank {% endblock %}
+
+{% block content %}
+<div class="text-white">
+    <div class="container mx-auto p-5">
+        <div class="mt-10 mb-8 flex justify-center items-center">
+            <h1 class="text-4xl font-bold text-center">Transaction Statements</h1>
+        </div>        
+        <form method="get" action="{% url 'statements' %}">
+            <div class="w-full flex flex-wrap items-center gap-5 mt-12 mb-5">                
+                <div class="px-4 bg-white rounded-md flex justify-between items-center relative text-black py-2 gap-x-2 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
+                    <label for="start_date" class="font-semibold">From:</label>
+                    <input class="appearance-none w-full outline-none focus:outline-none active:outline-none" type="date" id="start_date" name="start_date" />
+                </div>
+                <div class="px-4 bg-white rounded-md flex justify-between items-center relative text-black py-2 gap-x-2 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
+                    <label for="end_date" class="font-semibold">To:</label>
+                    <input class="appearance-none w-full outline-none focus:outline-none active:outline-none" type="date" id="end_date" name="end_date" />
+                </div>
+                <div>
+                    <button class="px-8 py-2 bg-gray-900 tracking-wide appearance-none w-full outline-none focus:outline-none active:outline-none rounded-md">Filter</button>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full">
+                    <thead>
+                        <tr>
+                            <th class="border p-3">Transaction Date</th>
+                            <th class="border p-3">Transaction Type</th>
+                            <th class="border p-3">Transaction Amount</th>
+                            <th class="border p-3">Previous Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in object_list %}
+                            <tr>
+                                <td class="border p-3 text-center">{{transaction.timestamp|date:"F d, Y h:i A"}}</td>
+                                <td class="border p-3 text-center {% if transaction.get_transaction_type_display == 'Withdraw' %} text-red-400 {% else %} text-green-400 {% endif %}">{{transaction.get_transaction_type_display}}</td>
+                                <td class="border p-3 text-center {% if transaction.get_transaction_type_display == 'Withdraw' %} text-red-400 {% else %} text-green-400 {% endif %}">$ {{transaction.amount|floatformat:2|intcomma}}</td>
+                                <td class="border p-3 text-center">$ {{transaction.balance_after_transaction|floatformat:2|intcomma}}</td>
+                            </tr>
+                        {% endfor %}                        
+                    </tbody>
+                </table>
+                <div>
+                    <div class="w-full flex justify-between items-center py-4 px-6 border text-lg font-semibold tracking-wide">
+                        <span>Current Balance:</span>
+                        <span>$ {{account.balance|floatformat:2|intcomma}}</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

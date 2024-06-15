@@ -1,0 +1,162 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block page_title %} State bank - Edit Pofile {% endblock %}
+
+{% block content %}
+<div class="py-10 lg:py-14 px-5">
+    <div>
+        <div>
+            {% if form.non_field_errors %}
+                {% for error in from.non_field_errors %}
+                    <div class="bg-red-600 text-white px-5 py-3 rounded-xl font-semibold flex items-center flex-wrap gap-3">
+                        <span class="text-lg">&#9888;</span>
+                        <span>{{error}}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if form.non_field_errors %}
+                {% for error in from.non_field_errors %}
+                    <div class="bg-red-600 text-white px-5 py-3 rounded-xl font-semibold flex items-center flex-wrap gap-3">
+                        <span class="text-lg">&#9888;</span>
+                        <span>{{error}}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="px-5 py-3">
+            <div class="flex flex-col md:flex-row justify-start sm:items-center md:justify-between py-2 gap-5 mb-5 md:mb-0">
+                <div>
+                    <h1 class="text-4xl font-bold text-white">Edit Your Profile</h1>
+                </div>
+                <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-4">
+                    <a href="{% url 'edit_profile' %}" class="bg-slate-700 w-52 p-2 flex justify-center items-center text-base text-white tracking-wide font-semibold cursor-pointer select-none">Change Passwod</a>
+                    <a href="{% url 'edit_profile' %}" class="bg-slate-700 w-52 p-2 flex justify-center items-center text-base text-white tracking-wide font-semibold cursor-pointer select-none">Reset Passwod</a>
+                </div>
+            </div>
+            <form class="text-white" method="post">
+                {% csrf_token %}
+                {% for hidden_field in form.hidden_fields %} 
+                    {{ hidden_field.errors }} {{ hidden_field }} 
+                {% endfor %}
+                <div class="grid grid-cols-1 lg:gap-5 lg:mb-5">
+                    <div>
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                        {{form.username}}
+                        {% if form.username.errors %}
+                            {% for error in form.username.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
+                    <div class="mb-5 lg:mb-0">
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                        {{form.first_name}}
+                        {% if form.first_name.errors %}
+                            {% for error in form.first_name.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="mb-5 lg:mb-0">
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                        {{form.last_name}}
+                        {% if form.last_name.errors %}
+                            {% for error in form.last_name.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
+                    <div class="mb-5 lg:mb-0">
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                        {{form.email}}
+                        {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="mb-5 lg:mb-0">
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.account_type.id_for_label }}">{{ form.account_type.label }}</label>
+                        {{form.account_type}}
+                        {% if form.account_type.errors %}
+                            {% for error in form.account_type.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
+                    <div class="mb-5 lg:mb-0">
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+                        {{form.gender}}
+                        {% if form.gender.errors %}
+                            {% for error in form.gender.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="mb-5 lg:mb-0">
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
+                        {{form.birthday}}
+                        {% if form.birthday.errors %}
+                            {% for error in form.birthday.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field.errors }} {{ hidden_field }}
+                {% endfor %}
+                <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
+                    <div class="mb-5 lg:mb-0">
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.street_address.id_for_label }}">{{ form.street_address.label }}</label>
+                        {{form.street_address}}
+                        {% if form.street_address.errors %}
+                            {% for error in form.street_address.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="mb-5 lg:mb-0">
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+                        {{form.city}}
+                        {% if form.city.errors %}
+                            {% for error in form.city.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
+                    <div class="mb-5 lg:mb-0">
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label>
+                        {{form.postal_code}}
+                        {% if form.postal_code.errors %}
+                            {% for error in form.postal_code.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="mb-5 lg:mb-0">
+                        <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
+                        {{form.country}}
+                        {% if form.country.errors %}
+                            {% for error in form.country.errors %}
+                                <p class="text-red-600 text-sm pb-2">{{error}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="flex justify-center items-center my-10">
+                    <button type="submit" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2.5 px-8 rounded focus:outline-none focus:shadow-outline tracking-wide">Update Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 
