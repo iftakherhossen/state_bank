@@ -1,6 +1,9 @@
 from django import forms
 from .models import Transaction
 from django.contrib.auth.models import User
+from accounts.models import UserBankAccount
+from .models import Bank
+
 
 class TransactionForm(forms.ModelForm):
     class Meta:
@@ -30,9 +33,13 @@ class DepositForm(TransactionForm):
     
 class WithdrawForm(TransactionForm):
     def clean_amount(self):
+        bank = Bank.objects.first()
+        if bank and bank.isBankrupt:
+            raise forms.ValidationError("The Bank is Bankrupt!")
+            
         account = self.account
         min_withdrawal_amount = 500
-        max_withdrawal_amount = 100000
+        max_withdrawal_amount = 1000000
         balance = account.balance
         amount = self.cleaned_data.get('amount')
         if amount > balance:
@@ -57,13 +64,16 @@ class LoanRequestForm(TransactionForm):
 class TransferTransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ['recipient_username', 'recipient_account_no', 'amount', 'transaction_type']
+        fields = ['recipient_account_no', 'amount', 'transaction_type']
        
     def __init__(self, *args, **kwargs):
         self.account = kwargs.pop('account')
         super().__init__(*args, **kwargs)
         self.fields['transaction_type'].disabled = True
         self.fields['transaction_type'].widget = forms.HiddenInput()
+        bank = Bank.objects.first()
+        if bank and bank.isBankrupt:
+            self.add_error(None, "The Bank is Bankrupt")
         
     def save(self, commit=True):
         self.instance.account = self.account
@@ -74,18 +84,37 @@ class TransferMoneyForm(TransferTransactionForm):
     def clean_amount(self):
         account = self.account
         min_transfer_amount = 500
-        max_transfer_amount = 100000
+        max_transfer_amount = 1000000
         balance = account.balance
-        recipient_account_no = self.cleaned_data.get('recipient_account_no')
-        recipient_account = User.objects.get(account_no=recipient_account_no)
-        print(recipient_account)
         amount = self.cleaned_data.get('amount')
+        bank = Bank.objects.first()
         
+        if bank and bank.isBankrupt:
+            raise forms.ValidationError("The Bank is Bankrupt!")        
         if amount > balance:
             raise forms.ValidationError(
                 f"You have insufficient balance!"
             )
-        if recipient_account:
-            print(recipient_account)      
+        if amount < min_transfer_amount:
+            raise forms.ValidationError(
+                f"You have to transfer at least $ {min_transfer_amount}"
+            )
+        if amount > max_transfer_amount:
+            raise forms.ValidationError(
+                f"You can transfer at most $ {max_transfer_amount}"
+            )        
         return amount
-            
+    
+    def clean_recipient_account(self):
+        recipient_account_no = self.cleaned_data.get('recipient_account_no')
+        
+        if len(str(recipient_account_no)) != 10:
+            raise forms.ValidationError(
+                "The account number must be exactly 10 digits."
+            )
+        if not UserBankAccount.objects.filter(account_no=recipient_account_no).exists():
+            raise forms.ValidationError(
+                f"There is no account with the account no {recipient_account_no}!"
+            )
+        return recipient_account_no
+              

@@ -9,22 +9,20 @@ from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.forms import ValidationError
 from .models import Transaction
 from .forms import DepositForm, WithdrawForm, LoanRequestForm, TransferMoneyForm
-from .constants import DEPOSIT, WITHDRAW, TRANSFER, LOAN_REQUEST, LOAN_REPAY
+from .constants import DEPOSIT, WITHDRAW, TRANSFER1, TRANSFER2, LOAN_REQUEST, LOAN_REPAY
+from accounts.models import UserBankAccount
 
 # Create your views here.
 def SendTransactionEmail(user, amount, key):
     if key == 'Loan':
         mail_subject = key + ' Request Confirmation'
-        template = 'transactions/email_loan_template.html'
-    elif key == 'Loan Approval':
-        mail_subject = key + ' Confirmation'
-        template = 'transactions/email_loan_approval_template.html'
     else:
         mail_subject = key + ' Confirmation'
-        template = 'transactions/email_template.html'
         
+    template = 'transactions/email_template.html'        
     message = render_to_string(template, {
         'user': user,
         'amount': amount,
@@ -178,16 +176,39 @@ class TransferMoneyView(TransactionCreateMixin):
     key = 'Transfer'
     
     def get_initial(self):
-        initial = {'transaction_type': TRANSFER}
+        initial = {'transaction_type': TRANSFER1}
         return initial
     
     def form_valid(self, form):        
-        account = self.request.user.account
+        user_account = self.request.user.account
+        recipient_account_no = form.cleaned_data.get('recipient_account_no')
         amount = form.cleaned_data.get('amount')
-        account.balance -= amount
-        account.save(
+        
+        try:
+            recipient = UserBankAccount.objects.get(account_no=recipient_account_no)
+        except UserBankAccount.DoesNotExist:
+            form.add_error('recipient_account_no', f"There is no account with the account number {recipient_account_no}.")
+            return self.form_invalid(form)
+            
+        user_account.balance -= amount
+        recipient.balance += amount
+        
+        user_account.save(
             update_fields = ['balance']
+        )
+        recipient.save(
+            update_fields = ['balance']
+        )        
+        Transaction.objects.create(
+            account=recipient,
+            sender=user_account,
+            amount=amount,
+            balance_after_transaction=recipient.balance,
+            transaction_type=TRANSFER2 
         )
         messages.success(self.request, f"${amount} transferred to account successfully!")
         SendTransactionEmail(self.request.user, amount, 'Transfer Money')
         return super().form_valid(form)
+                
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))   

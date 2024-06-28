@@ -12,8 +12,18 @@
                 {% csrf_token %}
                 {% if key == 'Transfer' %}
                 <div class="w-full mb-5">
-                    <label class="text-lg uppercase font-semibold tracking-wide px-1 mb-2" for="amount">Recipient Account No</label>
-                    <input class="shadow appearance-none border border-gray-500 rounded w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2 font-bold" name="recipient_account_no" id="amount" type="number" placeholder="Recipient Account No" required>
+                    <label class="text-lg uppercase font-semibold tracking-wide px-1 mb-2" for="recipient_account_no">Recipient Account No</label>
+                    <input class="shadow appearance-none border border-gray-500 rounded w-full py-2.5 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2 font-bold" name="recipient_account_no" id="recipient_account_no" type="number" placeholder="Recipient Account No" minlength="10" maxlength="10" required>
+                </div>
+                <div>
+                    {% if form.recipient_account_no.errors %}
+                        {% for error in form.recipient_account_no.errors %}
+                            <div class="bg-red-600 text-white px-5 py-3 rounded-xl font-semibold flex items-center flex-wrap gap-3 my-5">
+                                <span class="text-lg">&#9888;</span>
+                                <span>{{error}}</span>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div> 
                 {% endif %}
                 <div class="w-full mb-5">

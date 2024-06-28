@@ -1,13 +1,13 @@
 {% extends 'base.html' %} 
 {% load static %} 
 
-{% block page_title %} State Bank - Home {% endblock %} 
+{% block page_title %} Library Management - Home {% endblock %} 
 
 {% block content %}
 <div class="container mx-auto">
     <div class="min-h-[750px] flex items-center my-10">
         <div class="flex flex-col-reverse lg:flex-row items-center">
-            <div class="w-[100%] lg:w-[50%] bg-gray-700 px-12 py-10 text-white flex flex-col shadow-lg rounded-xl">
+            <div class="w-[100%] lg:w-[50%] md:bg-gray-700 px-12 py-10 text-white flex flex-col shadow-sm md:shadow-lg rounded-xl">
                 <h6 class="font-bold text-2xl">Welcome to</h6>
                 <h1 class="font-bold text-5xl mt-1">State Bank.</h1>
                 <div class="mt-5 mb-10">
@@ -19,33 +19,19 @@
                         <li class="list-disc text-lg font-medium">24/7 Customer Service</li>
                         <li class="list-disc text-lg font-medium">Digital Wallets and Payments</li>
                         <li class="list-disc text-lg font-medium">And Many More...</li>
-                        {% comment %} <li class="list-disc text-lg font-medium">Rewards and Loyalty Programs</li> {% endcomment %}
                     </ul>
                 </div>
                 <div class="w-full flex justify-end mt-auto">
-                    {% if user.is_authenticated %}
+                    {% comment %} {% if user.is_authenticated %}
                         <a href="{% url 'profile' %}" class="bg-gray-900 text-white w-36 h-12 uppercase font-bold border-none tracking-wider flex justify-center items-center rounded-lg">Profile</a>
                     {% else %}
                         <a href="{% url 'register' %}" class="bg-gray-900 text-white w-36 h-12 uppercase font-bold border-none tracking-wider flex justify-center items-center rounded-lg">Register</a>
-                    {% endif %}
+                    {% endif %} {% endcomment %}
                 </div>
             </div>
-            <div class="w-[100%] lg:w-[50%]">
+            <div class="w-[100%] lg:w-[50%] mt-8 lg:mt-0">
                 <img src="{% static './images/bank.png' %}" alt="Bank" class="w-full">
             </div>
-        </div>
-    </div>
-    <div class="py-10">
-        <div class="mt-20 mb-16 text-center">
-            <h2 class="text-4xl font-bold text-white">Services We Provide</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {% for feature in features %}
-                <div class="px-8 py-6 shadow hover:shadow-lg border border-slate-700 text-white rounded-md">
-                    <h3 class="text-xl font-semibold mb-3">{{feature.title}}</h3>
-                    <p>{{feature.description}}</p>
-                </div>
-            {% endfor %}
         </div>
     </div>
 </div>

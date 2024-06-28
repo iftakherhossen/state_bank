@@ -1,6 +1,6 @@
 from typing import Any
 from django.contrib import admin
-from .models import Transaction
+from .models import Transaction, Bank
 from .views import SendTransactionEmail
 
 # Register your models here.
@@ -15,3 +15,5 @@ class TransactionAdmin(admin.ModelAdmin):
             obj.account.save()
             SendTransactionEmail(obj.account.user, obj.amount,'Loan Approval')
         super().save_model(request, obj, form, change)
+        
+admin.site.register(Bank)
