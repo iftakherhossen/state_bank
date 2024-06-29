@@ -9,25 +9,25 @@ from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from django.forms import ValidationError
 from .models import Transaction
 from .forms import DepositForm, WithdrawForm, LoanRequestForm, TransferMoneyForm
 from .constants import DEPOSIT, WITHDRAW, TRANSFER1, TRANSFER2, LOAN_REQUEST, LOAN_REPAY
 from accounts.models import UserBankAccount
 
 # Create your views here.
-def SendTransactionEmail(user, amount, key):
+def SendTransactionEmail(user, amount, key, sender=None):
     if key == 'Loan':
         mail_subject = key + ' Request Confirmation'
     else:
         mail_subject = key + ' Confirmation'
         
-    template = 'transactions/email_template.html'        
+    template = 'transactions/email_template.html'
     message = render_to_string(template, {
         'user': user,
         'amount': amount,
         'balance': user.account.balance,
-        'key': key
+        'key': key,
+        'sender': sender
     })
     send_email = EmailMultiAlternatives(mail_subject, '', to=[user.email])
     send_email.attach_alternative(message, 'text/html')
@@ -182,7 +182,7 @@ class TransferMoneyView(TransactionCreateMixin):
     def form_valid(self, form):        
         user_account = self.request.user.account
         recipient_account_no = form.cleaned_data.get('recipient_account_no')
-        amount = form.cleaned_data.get('amount')
+        amount = form.cleaned_data.get('amount')        
         
         try:
             recipient = UserBankAccount.objects.get(account_no=recipient_account_no)
@@ -207,7 +207,8 @@ class TransferMoneyView(TransactionCreateMixin):
             transaction_type=TRANSFER2 
         )
         messages.success(self.request, f"${amount} transferred to account successfully!")
-        SendTransactionEmail(self.request.user, amount, 'Transfer Money')
+        SendTransactionEmail(self.request.user, amount, 'Transfer')
+        SendTransactionEmail(recipient.user, amount, 'Transferred Money Received', self.request.user)
         return super().form_valid(form)
                 
     def form_invalid(self, form):

@@ -33,7 +33,7 @@
                 <div class="grid grid-cols-1 lg:gap-5 lg:mb-5">
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
-                        {{form.username}}
+                        <b>{{form.username}}</b>
                         {% if form.username.errors %}
                             {% for error in form.username.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -44,7 +44,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-                        {{form.first_name}}
+                        <b>{{form.first_name}}</b>
                         {% if form.first_name.errors %}
                             {% for error in form.first_name.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
-                        {{form.last_name}}
+                        <b>{{form.last_name}}</b>
                         {% if form.last_name.errors %}
                             {% for error in form.last_name.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -64,7 +64,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                        {{form.email}}
+                        <b>{{form.email}}</b>
                         {% if form.email.errors %}
                             {% for error in form.email.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -73,7 +73,7 @@
                     </div>
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.account_type.id_for_label }}">{{ form.account_type.label }}</label>
-                        {{form.account_type}}
+                        <b>{{form.account_type}}</b>
                         {% if form.account_type.errors %}
                             {% for error in form.account_type.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -84,7 +84,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
-                        {{form.gender}}
+                        <b>{{form.gender}}</b>
                         {% if form.gender.errors %}
                             {% for error in form.gender.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
-                        {{form.birthday}}
+                        <b>{{form.birthday}}</b>
                         {% if form.birthday.errors %}
                             {% for error in form.birthday.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -104,7 +104,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
-                        {{form.password1}}
+                        <b>{{form.password1}}</b>
                         {% if form.password1.errors %}
                             {% for error in form.password1.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
-                        {{form.password2}}
+                        <b>{{form.password2}}</b>
                         {% if form.password2.errors %}
                             {% for error in form.password2.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -127,7 +127,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.street_address.id_for_label }}">{{ form.street_address.label }}</label>
-                        {{form.street_address}}
+                        <b>{{form.street_address}}</b>
                         {% if form.street_address.errors %}
                             {% for error in form.street_address.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -136,7 +136,7 @@
                     </div>
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
-                        {{form.city}}
+                        <b>{{form.city}}</b>
                         {% if form.city.errors %}
                             {% for error in form.city.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -147,7 +147,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-5 lg:mb-5">
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label>
-                        {{form.postal_code}}
+                        <b>{{form.postal_code}}</b>
                         {% if form.postal_code.errors %}
                             {% for error in form.postal_code.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -156,7 +156,7 @@
                     </div>
                     <div class="mb-5 lg:mb-0">
                         <label class="text-base uppercase font-semibold tracking-wide px-1" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
-                        {{form.country}}
+                        <b>{{form.country}}</b>
                         {% if form.country.errors %}
                             {% for error in form.country.errors %}
                                 <p class="text-red-600 text-sm pb-2">{{error}}</p>
@@ -166,7 +166,7 @@
                 </div>
                 <div class="flex items-center gap-3 mb-6">
                     <input type="checkbox" checked />
-                    <p class="text-lg">I agree with all the terms and privacy policy.</p>
+                    <p class="text-lg fron-font-medium">I agree with all the terms and privacy policy.</p>
                 </div>
                 <div class="flex justify-center items-center my-10">
                     <button type="submit" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2.5 px-8 rounded focus:outline-none focus:shadow-outline tracking-wide">Create New Account</button>

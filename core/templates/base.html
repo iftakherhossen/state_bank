@@ -18,7 +18,8 @@
 </head>
 <body class="bg-[#1D232A]">
     {% include 'navbar.html' %}    
-    <main>   
+    <main class="min-h-auto">   
+        {% include 'messages.html' %}  
         {% block body%}     
         <div class="container mx-auto">
             {% block content %}            
@@ -40,6 +41,10 @@
             let selectedMenu = document.getElementById(menuId);
             if (selectedMenu.classList.contains("hidden")) {
                 selectedMenu.classList.remove("hidden");
+            }
+            else {
+                featuresMenu.classList.add("hidden");
+                userMenu.classList.add("hidden");
             }
         }
         let userbalance = {{ request.user.account.balance }};

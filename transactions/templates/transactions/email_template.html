@@ -7,6 +7,10 @@
     <p>We are pleased to inform you that your Loan Application has been successfully approved. The requested amount of ${{amount}} will be credited to your account shortly.</p>
     {% elif key == 'Loan' %}
     <p>This is to confirm that we have received your {{key}} request for an amount of ${{amount}}. Our team is now processing your request and will get back to you shortly with further details.</p>
+    {% elif key == 'Transfer' %}
+    <p>This is to confirm that we have received your {{key}} request for an amount of ${{amount}} has been successfully processed. . Your updated account balance is now ${{balance}}.</p>
+    {% elif key == 'Transferred Money Received' %}
+    <p>This is to confirm that you have received ${{amount}} from the Account No. {{sender.account.account_no}}. Your updated account balance is now ${{balance}}.</p>
     {% else %}
     <p>We are writing to confirm that your recent {{key}} of ${{amount}} has been successfully processed. Your updated account balance is now ${{balance}}.</p>
     {% endif %}

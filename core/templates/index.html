@@ -1,16 +1,16 @@
 {% extends 'base.html' %} 
 {% load static %} 
 
-{% block page_title %} Library Management - Home {% endblock %} 
+{% block page_title %} State Bank - Home {% endblock %} 
 
 {% block content %}
 <div class="container mx-auto">
     <div class="min-h-[750px] flex items-center my-10">
         <div class="flex flex-col-reverse lg:flex-row items-center">
-            <div class="w-[100%] lg:w-[50%] md:bg-gray-700 px-12 py-10 text-white flex flex-col shadow-sm md:shadow-lg rounded-xl">
+            <div class="w-[100%] lg:w-[50%] md:bg-gray-700 p-12 text-white flex flex-col shadow-sm md:shadow-lg rounded-xl">
                 <h6 class="font-bold text-2xl">Welcome to</h6>
                 <h1 class="font-bold text-5xl mt-1">State Bank.</h1>
-                <div class="mt-5 mb-10">
+                <div class="mt-5">
                     <p class="text-[17px] leading-slug">At State Bank, we are committed to providing exceptional banking services that cater to all your financial needs. With a strong legacy of trust and excellence, we offer a comprehensive range of banking solutions designed to help you manage and grow your wealth efficiently.</p>
                     <ul class="pl-12 pt-4">
                         <li class="list-disc text-lg font-medium">24/7 Online Banking</li>
@@ -20,13 +20,6 @@
                         <li class="list-disc text-lg font-medium">Digital Wallets and Payments</li>
                         <li class="list-disc text-lg font-medium">And Many More...</li>
                     </ul>
-                </div>
-                <div class="w-full flex justify-end mt-auto">
-                    {% comment %} {% if user.is_authenticated %}
-                        <a href="{% url 'profile' %}" class="bg-gray-900 text-white w-36 h-12 uppercase font-bold border-none tracking-wider flex justify-center items-center rounded-lg">Profile</a>
-                    {% else %}
-                        <a href="{% url 'register' %}" class="bg-gray-900 text-white w-36 h-12 uppercase font-bold border-none tracking-wider flex justify-center items-center rounded-lg">Register</a>
-                    {% endif %} {% endcomment %}
                 </div>
             </div>
             <div class="w-[100%] lg:w-[50%] mt-8 lg:mt-0">
